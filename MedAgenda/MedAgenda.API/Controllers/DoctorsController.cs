@@ -20,6 +20,13 @@ namespace MedAgenda.API.Controllers
         // GET: api/Doctors
         public IQueryable<Doctor> GetDoctors()
         {
+            return db.Doctors.Where(d => !d.IsDisabled);
+        }
+
+        // GET: api/Doctors/all
+        [HttpGet, Route("api/doctors/all")]
+        public IQueryable<Doctor> GetAllDoctors()
+        {
             return db.Doctors;
         }
 

@@ -17,6 +17,7 @@ namespace MedAgenda.API.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Telephone { get; set; }
+        public Boolean IsDisabled { get; set; }
 
         public virtual ICollection<DoctorCheckIn> DoctorCheckIns { get; set; }
         public virtual ICollection<Specialty> Specialties { get; set; }

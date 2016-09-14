@@ -154,6 +154,10 @@
     <Compile Include="Migrations\201609141745361_NullableCheckoutTime.Designer.cs">
       <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609142147180_AddedDoctorPatientDisable.cs" />
+    <Compile Include="Migrations\201609142147180_AddedDoctorPatientDisable.Designer.cs">
+      <DependentUpon>201609142147180_AddedDoctorPatientDisable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -188,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609141745361_NullableCheckoutTime.resx">
       <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609142147180_AddedDoctorPatientDisable.resx">
+      <DependentUpon>201609142147180_AddedDoctorPatientDisable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
