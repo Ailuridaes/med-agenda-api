@@ -132,6 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssignmentsController.cs" />
+    <Compile Include="Controllers\DoctorCheckInsController.cs" />
+    <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\EmergencyContactsController.cs" />
+    <Compile Include="Controllers\ExamRoomPurposesController.cs" />
+    <Compile Include="Controllers\ExamRoomsController.cs" />
+    <Compile Include="Controllers\MedicalFieldsController.cs" />
+    <Compile Include="Controllers\PatientCheckInsController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
+    <Compile Include="Controllers\SpecialtiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,6 +149,10 @@
     <Compile Include="Migrations\201609140003230_InitialMigration.cs" />
     <Compile Include="Migrations\201609140003230_InitialMigration.Designer.cs">
       <DependentUpon>201609140003230_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609141745361_NullableCheckoutTime.cs" />
+    <Compile Include="Migrations\201609141745361_NullableCheckoutTime.Designer.cs">
+      <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
@@ -167,11 +181,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609140003230_InitialMigration.resx">
       <DependentUpon>201609140003230_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609141745361_NullableCheckoutTime.resx">
+      <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

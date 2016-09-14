@@ -9,7 +9,7 @@ namespace MedAgenda.API.Models
         public int? ExamRoomId { get; set; }
 
         public System.DateTime CheckInTime { get; set; }
-        public System.DateTime CheckOutTime { get; set; }
+        public System.DateTime? CheckOutTime { get; set; }
 
 
         public virtual PatientCheckIn PatientCheckIn { get; set; }
