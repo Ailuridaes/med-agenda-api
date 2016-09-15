@@ -146,17 +146,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\MedAgendaDataContext.cs" />
-    <Compile Include="Migrations\201609140003230_InitialMigration.cs" />
-    <Compile Include="Migrations\201609140003230_InitialMigration.Designer.cs">
-      <DependentUpon>201609140003230_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609141745361_NullableCheckoutTime.cs" />
-    <Compile Include="Migrations\201609141745361_NullableCheckoutTime.Designer.cs">
-      <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609142147180_AddedDoctorPatientDisable.cs" />
-    <Compile Include="Migrations\201609142147180_AddedDoctorPatientDisable.Designer.cs">
-      <DependentUpon>201609142147180_AddedDoctorPatientDisable.cs</DependentUpon>
+    <Compile Include="Migrations\201609151757469_Fixed DateTime for PatientCheckIn.cs" />
+    <Compile Include="Migrations\201609151757469_Fixed DateTime for PatientCheckIn.Designer.cs">
+      <DependentUpon>201609151757469_Fixed DateTime for PatientCheckIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
@@ -184,14 +176,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609140003230_InitialMigration.resx">
-      <DependentUpon>201609140003230_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609141745361_NullableCheckoutTime.resx">
-      <DependentUpon>201609141745361_NullableCheckoutTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609142147180_AddedDoctorPatientDisable.resx">
-      <DependentUpon>201609142147180_AddedDoctorPatientDisable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609151757469_Fixed DateTime for PatientCheckIn.resx">
+      <DependentUpon>201609151757469_Fixed DateTime for PatientCheckIn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

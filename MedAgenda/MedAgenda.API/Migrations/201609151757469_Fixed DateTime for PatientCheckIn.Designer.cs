@@ -7,13 +7,13 @@ namespace MedAgenda.API.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedDoctorPatientDisable : IMigrationMetadata
+    public sealed partial class FixedDateTimeforPatientCheckIn : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDoctorPatientDisable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedDateTimeforPatientCheckIn));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609142147180_AddedDoctorPatientDisable"; }
+            get { return "201609151757469_Fixed DateTime for PatientCheckIn"; }
         }
         
         string IMigrationMetadata.Source

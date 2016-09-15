@@ -18,6 +18,10 @@ namespace MedAgenda.API.Models
         public string Telephone { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Boolean IsDisabled { get; set; }
+        public string Medications { get; set; }
+        public string ChronicConditions { get; set; }
+        public string Allergies { get; set; }
+        public string Symptoms { get; set; }
 
         public virtual ICollection<PatientCheckIn> PatientCheckIns { get; set; }
         public virtual ICollection<EmergencyContact> EmergencyContacts { get; set; }
