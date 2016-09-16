@@ -36,6 +36,17 @@ namespace MedAgenda.API.Controllers
             return Ok(patientCheckIn);
         }
 
+        // GET: api/PatientCheckIns/Active
+        [HttpGet]
+        [Route("api/PatientCheckIns/Active")]
+        [ResponseType(typeof(IQueryable<PatientCheckIn>))]
+        public IHttpActionResult GetPatientCheckInsActive()
+        {
+            IQueryable<PatientCheckIn> patientCheckIns = db.PatientCheckIns.Where(p => p.CheckOutTime == null);
+
+            return Ok(patientCheckIns);
+        }
+
         // PUT: api/PatientCheckIns/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPatientCheckIn(int id, PatientCheckIn patientCheckIn)
@@ -71,6 +82,46 @@ namespace MedAgenda.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // PUT: api/PatientCheckIns/CheckOut
+        [HttpPut]
+        [Route("api/PatientCheckIns/CheckOut/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutPatientCheckInCheckOut(int id, PatientCheckIn patientCheckIn)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != patientCheckIn.PatientCheckInId)
+            {
+                return BadRequest();
+            }
+
+            // Add CheckOutTime
+            patientCheckIn.CheckOutTime = DateTime.Now;
+
+            db.Entry(patientCheckIn).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PatientCheckInExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/PatientCheckIns
         [ResponseType(typeof(PatientCheckIn))]
         public IHttpActionResult PostPatientCheckIn(PatientCheckIn patientCheckIn)
@@ -79,6 +130,11 @@ namespace MedAgenda.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            // TODO: check if active checkIn exists for patient
+
+            // Add CheckInTime to new CheckIn
+            patientCheckIn.CheckInTime = DateTime.Now;
 
             db.PatientCheckIns.Add(patientCheckIn);
             db.SaveChanges();

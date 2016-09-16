@@ -88,6 +88,9 @@ namespace MedAgenda.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            // Add StartTime to new Assignment
+            assignment.StartTime = DateTime.Now;
+
             db.Assignments.Add(assignment);
 
             try

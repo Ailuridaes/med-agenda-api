@@ -8,6 +8,8 @@ namespace MedAgenda.API.Models
     {
         public int DoctorCheckInId { get; set; }
         public int DoctorId { get; set; }
+        public DateTime CheckInTime { get; set; }
+        public DateTime? CheckOutTime { get; set; }
 
         public virtual Doctor Doctor { get; set; }
         public virtual ICollection<Assignment> Assignments { get; set; }
