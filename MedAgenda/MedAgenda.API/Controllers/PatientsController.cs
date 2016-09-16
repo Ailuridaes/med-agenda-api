@@ -109,6 +109,19 @@ namespace MedAgenda.API.Controllers
             return Ok(patient);
         }
 
+        // Check Patient Exists: GET api/Patients
+        [ResponseType(typeof(bool))]
+        [HttpGet, Route("api/patients/isreturning/{firstName}/{lastName}/{email}")]
+        public IHttpActionResult IsPatientReturning(string firstName, string lastName, string email) 
+        {
+             
+
+            var result = db.Patients.Count(p => p.FirstName.ToLower() == firstName.ToLower() && p.LastName.ToLower() == lastName.ToLower() && p.Email.ToLower() == email.ToLower());
+
+            return Ok(result);
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
