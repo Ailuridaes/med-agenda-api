@@ -24,6 +24,7 @@ namespace MedAgenda.API.Controllers
         }
 
         // GET: api/DoctorCheckIns/5
+        [HttpGet]
         [ResponseType(typeof(DoctorCheckIn))]
         public IHttpActionResult GetDoctorCheckIn(int id)
         {
@@ -36,7 +37,19 @@ namespace MedAgenda.API.Controllers
             return Ok(doctorCheckIn);
         }
 
+        // GET: api/DoctorCheckIns/Active
+        [HttpGet]
+        [Route("api/DoctorCheckIns/Active")]
+        [ResponseType(typeof(IQueryable<DoctorCheckIn>))]
+        public IHttpActionResult GetDoctorCheckInsActive()
+        {
+            IQueryable<DoctorCheckIn> doctorCheckIns = db.DoctorCheckIns.Where(d => d.CheckOutTime == null);
+
+            return Ok(doctorCheckIns);
+        }
+
         // PUT: api/DoctorCheckIns/5
+        [HttpPut]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutDoctorCheckIn(int id, DoctorCheckIn doctorCheckIn)
         {
@@ -71,6 +84,46 @@ namespace MedAgenda.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // PUT: api/DoctorCheckIns/CheckOut
+        [HttpPut]
+        [Route("api/DoctorCheckIns/CheckOut/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutDoctorCheckInCheckOut(int id, DoctorCheckIn doctorCheckIn)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != doctorCheckIn.DoctorCheckInId)
+            {
+                return BadRequest();
+            }
+
+            // Add CheckOutTime
+            doctorCheckIn.CheckOutTime = DateTime.Now;
+
+            db.Entry(doctorCheckIn).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DoctorCheckInExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/DoctorCheckIns
         [ResponseType(typeof(DoctorCheckIn))]
         public IHttpActionResult PostDoctorCheckIn(DoctorCheckIn doctorCheckIn)
@@ -79,6 +132,15 @@ namespace MedAgenda.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            // Check if active checkIn exists for doctor
+            if (ActiveCheckinExists(doctorCheckIn.DoctorId))
+            {
+                return BadRequest("An active checkin already exists for this doctor.");
+            }
+
+            // Add CheckInTime to new CheckIn
+            doctorCheckIn.CheckInTime = DateTime.Now;
 
             db.DoctorCheckIns.Add(doctorCheckIn);
             db.SaveChanges();
@@ -114,6 +176,11 @@ namespace MedAgenda.API.Controllers
         private bool DoctorCheckInExists(int id)
         {
             return db.DoctorCheckIns.Count(e => e.DoctorCheckInId == id) > 0;
+        }
+
+        private bool ActiveCheckinExists(int doctorId)
+        {
+            return db.DoctorCheckIns.Count(d => d.DoctorId == doctorId && d.CheckOutTime == null) > 0;
         }
     }
 }

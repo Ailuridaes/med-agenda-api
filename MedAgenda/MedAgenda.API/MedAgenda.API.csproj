@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201609161616024_FixPatientCheckinDateTime.Designer.cs">
       <DependentUpon>201609161616024_FixPatientCheckinDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609161647422_AddCheckinTimes.cs" />
+    <Compile Include="Migrations\201609161647422_AddCheckinTimes.Designer.cs">
+      <DependentUpon>201609161647422_AddCheckinTimes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -199,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609161616024_FixPatientCheckinDateTime.resx">
       <DependentUpon>201609161616024_FixPatientCheckinDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609161647422_AddCheckinTimes.resx">
+      <DependentUpon>201609161647422_AddCheckinTimes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
