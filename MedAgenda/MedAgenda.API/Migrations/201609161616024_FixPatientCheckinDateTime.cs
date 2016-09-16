@@ -3,7 +3,7 @@ namespace MedAgenda.API.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FixedDateTimeforPatientCheckIn : DbMigration
+    public partial class FixPatientCheckinDateTime : DbMigration
     {
         public override void Up()
         {
