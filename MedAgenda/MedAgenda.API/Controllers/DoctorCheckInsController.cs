@@ -133,7 +133,11 @@ namespace MedAgenda.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            // TODO: check if active checkIn exists for doctor
+            // Check if active checkIn exists for doctor
+            if (ActiveCheckinExists(doctorCheckIn.DoctorId))
+            {
+                return BadRequest("An active checkin already exists for this doctor.");
+            }
 
             // Add CheckInTime to new CheckIn
             doctorCheckIn.CheckInTime = DateTime.Now;
@@ -174,5 +178,9 @@ namespace MedAgenda.API.Controllers
             return db.DoctorCheckIns.Count(e => e.DoctorCheckInId == id) > 0;
         }
 
+        private bool ActiveCheckinExists(int doctorId)
+        {
+            return db.DoctorCheckIns.Count(d => d.DoctorId == doctorId && d.CheckOutTime == null) > 0;
+        }
     }
 }
