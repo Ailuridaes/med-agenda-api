@@ -36,13 +36,25 @@ namespace MedAgenda.API.Controllers
             return Ok(patientCheckIn);
         }
 
-        // GET: api/PatientCheckIns/Active
+        // GET: api/PatientCheckIns/Queue
         [HttpGet]
-        [Route("api/PatientCheckIns/Active")]
+        [ActionName("Queue")]
+        [Route("api/PatientCheckIns/Queue/{doctorId?}")]
         [ResponseType(typeof(IQueryable<PatientCheckIn>))]
-        public IHttpActionResult GetPatientCheckInsActive()
+        public IHttpActionResult GetPatientCheckInsQueue(int? doctorId = null)
         {
-            IQueryable<PatientCheckIn> patientCheckIns = db.PatientCheckIns.Where(p => p.CheckOutTime == null);
+
+            IQueryable<PatientCheckIn> patientCheckIns = db.PatientCheckIns
+                .Where(p => p.CheckOutTime == null);
+                
+            if (doctorId != null)
+            {
+                var medFields = db.Doctors.Where(d => d.DoctorId == doctorId).First()
+                    .Specialties.Select(s => s.MedicalFieldId);
+                patientCheckIns = patientCheckIns.Where(p => medFields.Contains(p.MedicalFieldId.Value));
+            }
+                
+            patientCheckIns = patientCheckIns.OrderByDescending(p => p.PainScale);
 
             return Ok(patientCheckIns);
         }
