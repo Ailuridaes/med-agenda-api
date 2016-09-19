@@ -114,11 +114,22 @@ namespace MedAgenda.API.Controllers
         [HttpGet, Route("api/patients/isreturning/{firstName}/{lastName}/{email}")]
         public IHttpActionResult IsPatientReturning(string firstName, string lastName, string email) 
         {
-             
 
-            var result = db.Patients.Count(p => p.FirstName.ToLower() == firstName.ToLower() && p.LastName.ToLower() == lastName.ToLower() && p.Email.ToLower() == email.ToLower());
+            
+            var isReturning = db.Patients.Count(p => p.FirstName.ToLower() == firstName.ToLower() && p.LastName.ToLower() == lastName.ToLower() && p.Email.ToLower() == email.ToLower());
 
-            return Ok(result);
+            if (isReturning == 1)
+            {
+                var result = db.Patients.FirstOrDefault(p => p.FirstName.ToLower() == firstName.ToLower() && p.LastName.ToLower() == lastName.ToLower() && p.Email.ToLower() == email.ToLower());
+                return Ok(result);
+            }
+            else
+            {
+                var result = 0;
+                return Ok(result);
+            }
+
+            
         }
 
 

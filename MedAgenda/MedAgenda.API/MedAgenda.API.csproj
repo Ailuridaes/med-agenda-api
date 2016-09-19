@@ -162,6 +162,14 @@
     <Compile Include="Migrations\201609161616024_FixPatientCheckinDateTime.Designer.cs">
       <DependentUpon>201609161616024_FixPatientCheckinDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609180343397_SyncPatientFieldsWithFrontEnd.cs" />
+    <Compile Include="Migrations\201609180343397_SyncPatientFieldsWithFrontEnd.Designer.cs">
+      <DependentUpon>201609180343397_SyncPatientFieldsWithFrontEnd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609182313129_RemoveEmergencyContactFieldsFromPatientTable.cs" />
+    <Compile Include="Migrations\201609182313129_RemoveEmergencyContactFieldsFromPatientTable.Designer.cs">
+      <DependentUpon>201609182313129_RemoveEmergencyContactFieldsFromPatientTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -199,6 +207,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609161616024_FixPatientCheckinDateTime.resx">
       <DependentUpon>201609161616024_FixPatientCheckinDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609180343397_SyncPatientFieldsWithFrontEnd.resx">
+      <DependentUpon>201609180343397_SyncPatientFieldsWithFrontEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609182313129_RemoveEmergencyContactFieldsFromPatientTable.resx">
+      <DependentUpon>201609182313129_RemoveEmergencyContactFieldsFromPatientTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

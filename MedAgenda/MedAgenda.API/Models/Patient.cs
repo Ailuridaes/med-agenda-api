@@ -16,6 +16,8 @@ namespace MedAgenda.API.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Telephone { get; set; }
+        public string Address { get; set; }
+        
         public DateTime DateOfBirth { get; set; }
         public Boolean IsDisabled { get; set; }
         public string Medications { get; set; }
