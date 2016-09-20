@@ -119,7 +119,6 @@ namespace MedAgenda.API.Controllers
 
             // Instantiate a new int array object assignedS 'data'
             int[] data = new int[labels.Length];
-        }
 
             // Return doctor specialty data
             return Ok(new
@@ -127,4 +126,6 @@ namespace MedAgenda.API.Controllers
                 Labels = labels,
                 Data = data
             });
+        }
+    }
 }
