@@ -21,7 +21,7 @@ namespace MedAgenda.API.Models
         public string Medications { get; set; }
         public string ChronicConditions { get; set; }
         public string Allergies { get; set; }
-        public string Symptoms { get; set; }
+
 
         public virtual ICollection<PatientCheckIn> PatientCheckIns { get; set; }
         public virtual ICollection<EmergencyContact> EmergencyContacts { get; set; }
