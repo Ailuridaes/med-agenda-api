@@ -10,6 +10,7 @@ namespace MedAgenda.API.Models
         public int? MedicalFieldId { get; set; }
         public int PatientId { get; set; }
         public int PainScale { get; set; }
+        public string Symptoms { get; set; }
         public DateTime CheckInTime { get; set; }
         public DateTime? CheckOutTime { get; set; }
 
