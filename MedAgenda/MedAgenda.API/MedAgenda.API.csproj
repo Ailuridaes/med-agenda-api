@@ -187,6 +187,18 @@
     <Compile Include="Migrations\201609201731150_PatientCheckInSymptoms.Designer.cs">
       <DependentUpon>201609201731150_PatientCheckInSymptoms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609211613542_AddedAdminClassAndAdminsControllerForLoginPage.cs" />
+    <Compile Include="Migrations\201609211613542_AddedAdminClassAndAdminsControllerForLoginPage.Designer.cs">
+      <DependentUpon>201609211613542_AddedAdminClassAndAdminsControllerForLoginPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211617412_AddedAdminPasswordToAdminClass.cs" />
+    <Compile Include="Migrations\201609211617412_AddedAdminPasswordToAdminClass.Designer.cs">
+      <DependentUpon>201609211617412_AddedAdminPasswordToAdminClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211845050_DeletedAdminClassAndController.cs" />
+    <Compile Include="Migrations\201609211845050_DeletedAdminClassAndController.Designer.cs">
+      <DependentUpon>201609211845050_DeletedAdminClassAndController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -239,6 +251,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609201731150_PatientCheckInSymptoms.resx">
       <DependentUpon>201609201731150_PatientCheckInSymptoms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211613542_AddedAdminClassAndAdminsControllerForLoginPage.resx">
+      <DependentUpon>201609211613542_AddedAdminClassAndAdminsControllerForLoginPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211617412_AddedAdminPasswordToAdminClass.resx">
+      <DependentUpon>201609211617412_AddedAdminPasswordToAdminClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211845050_DeletedAdminClassAndController.resx">
+      <DependentUpon>201609211845050_DeletedAdminClassAndController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
