@@ -86,19 +86,24 @@ namespace MedAgenda.API.Controllers
 
         // PUT: api/DoctorCheckIns/CheckOut
         [HttpPut]
-        [Route("api/DoctorCheckIns/CheckOut/{id}")]
+        [Route("api/DoctorCheckIns/CheckOut/{doctorId}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutDoctorCheckInCheckOut(int id, DoctorCheckIn doctorCheckIn)
+        public IHttpActionResult PutDoctorCheckInCheckOut(int doctorId)
         {
-            if (!ModelState.IsValid)
+            // Verify that Doctor exists
+            if (db.Doctors.Count(d => d.DoctorId == doctorId) == 0)
             {
-                return BadRequest(ModelState);
+                return BadRequest("A doctor with this ID does not exist.");
             }
 
-            if (id != doctorCheckIn.DoctorCheckInId)
+            IQueryable<DoctorCheckIn> doctorCheckIns = db.DoctorCheckIns.Where(d => d.DoctorId == doctorId && d.CheckOutTime == null);
+
+            if (doctorCheckIns == null || !doctorCheckIns.Any())
             {
-                return BadRequest();
+                return BadRequest("This doctor is not checked in.");
             }
+
+            DoctorCheckIn doctorCheckIn = doctorCheckIns.First();
 
             // Add CheckOutTime
             doctorCheckIn.CheckOutTime = DateTime.Now;
@@ -111,14 +116,7 @@ namespace MedAgenda.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DoctorCheckInExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -131,6 +129,12 @@ namespace MedAgenda.API.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            // Verify that Doctor exists
+            if (db.Doctors.Count(d => d.DoctorId == doctorCheckIn.DoctorId) == 0)
+            {
+                return BadRequest("A doctor with this ID does not exist.");
             }
 
             // Check if active checkIn exists for doctor
