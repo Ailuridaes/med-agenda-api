@@ -57,7 +57,12 @@ namespace MedAgenda.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(patient).State = EntityState.Modified;
+            //db.Entry(patient).State = EntityState.Modified;
+
+            var dbPatient = db.Patients.Find(id);
+
+            db.Entry(dbPatient).CurrentValues.SetValues(patient);
+            db.Entry(dbPatient).State = EntityState.Modified;
 
             try
             {
