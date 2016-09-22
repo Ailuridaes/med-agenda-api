@@ -105,7 +105,8 @@ namespace MedAgenda.API.Controllers
                     throw;
                 }
             }
-
+            specialty.Doctor = db.Doctors.Find(specialty.DoctorId);
+            specialty.MedicalField = db.MedicalFields.Find(specialty.MedicalFieldId);
             return CreatedAtRoute("DefaultApi", new { id = specialty.MedicalFieldId }, specialty);
         }
 
@@ -114,7 +115,7 @@ namespace MedAgenda.API.Controllers
         [HttpDelete, Route("api/specialties/{doctorId}/{medicalFieldId}")]
         public IHttpActionResult DeleteSpecialty(int doctorId, int medicalFieldId)
         {
-            Specialty specialty = db.Specialties.Find(doctorId, medicalFieldId);
+            Specialty specialty = db.Specialties.Find(medicalFieldId, doctorId);
             if (specialty == null)
             {
                 return NotFound();
