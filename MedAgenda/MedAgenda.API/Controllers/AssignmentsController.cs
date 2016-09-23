@@ -112,6 +112,45 @@ namespace MedAgenda.API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = assignment.PatientCheckInId }, assignment);
         }
 
+        // POST: api/Assignments/3/5
+        [HttpPost, Route("api/Assignments/{doctorId}/{patientCheckInId}", Name = "CreateAssignment")]
+        [ResponseType(typeof(Assignment))]
+        public IHttpActionResult PostAssignmentById(int doctorId, int patientCheckInId)
+        {
+            DoctorCheckIn doctorCheckIn = db.Doctors.Where(d => d.DoctorId == doctorId).First()
+                .DoctorCheckIns.Where(c => c.CheckOutTime == null).First();
+
+            if (doctorCheckIn == null)
+            {
+                return BadRequest("This doctor is not checked in.");
+            }
+
+            Assignment assignment = new Assignment(doctorCheckIn.DoctorCheckInId, patientCheckInId);
+
+            // Add StartTime to new Assignment
+            assignment.StartTime = DateTime.Now;
+
+            db.Assignments.Add(assignment);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (AssignmentExists(assignment.DoctorCheckInId, assignment.PatientCheckInId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtRoute("CreateAssignment", new { patientCheckInId = assignment.PatientCheckInId, doctorCheckInId = assignment.DoctorCheckInId }, assignment);
+        }
+
         // DELETE: api/Assignments/5
         [ResponseType(typeof(Assignment))]
         [HttpDelete, Route("api/Assignments/{patientCheckInId}/{doctorCheckInId}")]

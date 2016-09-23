@@ -4,8 +4,8 @@ namespace MedAgenda.API.Models
 {
     public class Assignment
     {
-        public int PatientCheckInId { get; set; }
         public int DoctorCheckInId { get; set; }
+        public int PatientCheckInId { get; set; }
         public int? ExamRoomId { get; set; }
 
         public System.DateTime StartTime { get; set; }
@@ -15,5 +15,16 @@ namespace MedAgenda.API.Models
         public virtual PatientCheckIn PatientCheckIn { get; set; }
         public virtual DoctorCheckIn DoctorCheckIn { get; set; }
         public virtual ExamRoom ExamRoom { get; set; }
+
+        public Assignment()
+        {
+
+        }
+
+        public Assignment(int doctorCheckInId, int patientCheckInId)
+        {
+            DoctorCheckInId = doctorCheckInId;
+            PatientCheckInId = patientCheckInId;
+        }
     }
 }
