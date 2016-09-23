@@ -6,6 +6,7 @@ namespace MedAgenda.API.Models
     {
         public int ExamRoomId { get; set; }
         public string RoomNumber { get; set; }
+        public bool IsInUse { get; set; }
 
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<ExamRoomPurpose> ExamRoomPurposes { get; set; }

@@ -25,12 +25,18 @@ namespace MedAgenda.API.Controllers
 
         // GET: api/Assignments/5
         [ResponseType(typeof(Assignment))]
-        [HttpGet, Route("api/assignments/{doctorCheckInId}/{patientCheckInId}")]
-        public IHttpActionResult GetAssignment(int doctorCheckInId, int patientCheckInId)
+        [HttpGet, Route("api/assignments/{doctorId}/{patientCheckInId}")]
+        public IHttpActionResult GetAssignment(int doctorId, int patientCheckInId)
         {
-            //Assignment assignment = db.Assignments.Find(id);
+            DoctorCheckIn doctorCheckIn = db.Doctors.Where(d => d.DoctorId == doctorId).First()
+               .DoctorCheckIns.Where(c => c.CheckOutTime == null).First();
 
-            var result = db.Assignments.Where(a => a.PatientCheckInId == patientCheckInId && a.DoctorCheckInId == doctorCheckInId);
+            if (doctorCheckIn == null)
+            {
+                return BadRequest("This doctor is not checked in.");
+            }
+
+            var result = db.Assignments.Where(a => a.PatientCheckInId == patientCheckInId && a.DoctorCheckInId == doctorCheckIn.DoctorCheckInId);
             if (result == null)
             {
                 return NotFound();
