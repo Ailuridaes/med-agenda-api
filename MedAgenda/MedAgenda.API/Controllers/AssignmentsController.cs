@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MedAgenda.API.Infrastructure;
 using MedAgenda.API.Models;
+using MedAgenda.API.HelperFunctions;
 
 namespace MedAgenda.API.Controllers
 {
@@ -157,6 +158,14 @@ namespace MedAgenda.API.Controllers
                     throw;
                 }
             }
+
+            var patientCheckInId = assignment.PatientCheckInId;
+            var patient = db.Patients.FirstOrDefault(p => p.PatientId == assignment.PatientCheckInId);
+            var messageToSend = "Hello " + patient.FirstName + " " + patient.LastName + ". " + "A doctor will be with you shortly. Please have a seat.";
+
+            TwilioSmsHelper.SendSms(patient.Telephone, messageToSend);
+
+            //TwilioSmsHelper.SendSms();
 
             return CreatedAtRoute("DefaultApi", new { id = assignment.PatientCheckInId }, assignment);
         }

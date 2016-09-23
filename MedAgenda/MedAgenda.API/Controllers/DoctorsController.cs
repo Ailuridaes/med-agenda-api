@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MedAgenda.API.Infrastructure;
 using MedAgenda.API.Models;
+using Twilio;
+using MedAgenda.API.HelperFunctions;
 
 namespace MedAgenda.API.Controllers
 {
@@ -57,7 +59,14 @@ namespace MedAgenda.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(doctor).State = EntityState.Modified;
+            //Old
+            //db.Entry(doctor).State = EntityState.Modified;
+
+            // NEW
+            var doctorToBeUpdated = db.Doctors.Find(id);//added
+
+            db.Entry(doctorToBeUpdated).CurrentValues.SetValues(doctor);//added
+            db.Entry(doctorToBeUpdated).State = EntityState.Modified;//added
 
             try
             {
@@ -78,6 +87,8 @@ namespace MedAgenda.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+       
+
         // POST: api/Doctors
         [ResponseType(typeof(Doctor))]
         public IHttpActionResult PostDoctor(Doctor doctor)
@@ -89,6 +100,12 @@ namespace MedAgenda.API.Controllers
 
             db.Doctors.Add(doctor);
             db.SaveChanges();
+
+            //Send welcome SMS to enrolling doctor.
+            string doctorTelephone = "+" + new String(doctor.Telephone.Where(Char.IsDigit).ToArray());
+            var messageToSend = "Hello Dr. " + doctor.FirstName + " " + doctor.LastName + ". " + "You have been enrolled in the MedAgenda system. Welcome to the team.";
+            TwilioSmsHelper.SendSms(doctor.Telephone, messageToSend);
+
 
             return CreatedAtRoute("DefaultApi", new { id = doctor.DoctorId }, doctor);
         }
@@ -105,6 +122,8 @@ namespace MedAgenda.API.Controllers
 
             db.Doctors.Remove(doctor);
             db.SaveChanges();
+
+
 
             return Ok(doctor);
         }
