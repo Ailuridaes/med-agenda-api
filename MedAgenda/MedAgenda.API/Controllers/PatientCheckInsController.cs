@@ -10,6 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MedAgenda.API.Infrastructure;
 using MedAgenda.API.Models;
+using Twilio;
+using MedAgenda.API.HelperFunctions;
 
 namespace MedAgenda.API.Controllers
 {
@@ -134,6 +136,8 @@ namespace MedAgenda.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+       
+
         // POST: api/PatientCheckIns
         [ResponseType(typeof(PatientCheckIn))]
         public IHttpActionResult PostPatientCheckIn(PatientCheckIn patientCheckIn)
@@ -154,6 +158,11 @@ namespace MedAgenda.API.Controllers
 
             db.PatientCheckIns.Add(patientCheckIn);
             db.SaveChanges();
+
+            var patient = db.Patients.FirstOrDefault(p => p.PatientId == patientCheckIn.PatientId);
+            var messageToSend = "Hello " + patient.FirstName + " " + patient.LastName + ". " + "A doctor will be with you shortly. Please have a seat.";
+
+            TwilioSmsHelper.SendSms(patient.Telephone, messageToSend);
 
             return CreatedAtRoute("DefaultApi", new { id = patientCheckIn.PatientCheckInId }, patientCheckIn);
         }
