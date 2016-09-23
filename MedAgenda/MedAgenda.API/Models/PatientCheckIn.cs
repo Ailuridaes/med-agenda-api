@@ -11,6 +11,7 @@ namespace MedAgenda.API.Models
         public int PatientId { get; set; }
         public int PainScale { get; set; }
         public string Symptoms { get; set; }
+        public string Resolution { get; set; }
         public DateTime CheckInTime { get; set; }
         public DateTime? CheckOutTime { get; set; }
 

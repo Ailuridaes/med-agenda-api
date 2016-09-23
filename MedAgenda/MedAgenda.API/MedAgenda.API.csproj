@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201609201731150_PatientCheckInSymptoms.Designer.cs">
       <DependentUpon>201609201731150_PatientCheckInSymptoms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609231750267_AddPatientCheckInResolution.cs" />
+    <Compile Include="Migrations\201609231750267_AddPatientCheckInResolution.Designer.cs">
+      <DependentUpon>201609231750267_AddPatientCheckInResolution.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Assignment.cs" />
     <Compile Include="Models\Doctor.cs" />
@@ -239,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609201731150_PatientCheckInSymptoms.resx">
       <DependentUpon>201609201731150_PatientCheckInSymptoms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609231750267_AddPatientCheckInResolution.resx">
+      <DependentUpon>201609231750267_AddPatientCheckInResolution.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

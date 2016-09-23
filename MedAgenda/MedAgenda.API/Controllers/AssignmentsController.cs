@@ -79,6 +79,49 @@ namespace MedAgenda.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // PUT: api/Assignments/End/5/6
+        [ResponseType(typeof(void))]
+        [HttpPut, Route("api/Assignments/End/{doctorCheckInId}/{patientCheckInId}")]
+        public IHttpActionResult PutAssignmentEnd(int doctorCheckInId, int patientCheckInId, Assignment assignment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (patientCheckInId != assignment.PatientCheckInId || doctorCheckInId != assignment.DoctorCheckInId)
+            {
+                return BadRequest();
+            }
+
+            // Add EndTime to Assignment
+            assignment.EndTime = DateTime.Now;
+
+            //db.Entry(assignment).State = EntityState.Modified;
+            var assignmentToBeUpdated = db.Assignments.FirstOrDefault(a => a.PatientCheckInId == patientCheckInId && a.DoctorCheckInId == doctorCheckInId);
+
+            db.Entry(assignmentToBeUpdated).CurrentValues.SetValues(assignment);
+            db.Entry(assignmentToBeUpdated).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AssignmentExists(doctorCheckInId, patientCheckInId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/Assignments
         [ResponseType(typeof(Assignment))]
         public IHttpActionResult PostAssignment(Assignment assignment)
