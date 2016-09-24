@@ -37,13 +37,13 @@ namespace MedAgenda.API.Controllers
                 return BadRequest("This doctor is not checked in.");
             }
 
-            var result = db.Assignments.Where(a => a.PatientCheckInId == patientCheckInId && a.DoctorCheckInId == doctorCheckIn.DoctorCheckInId);
-            if (result == null)
+            var assignment = db.Assignments.Where(a => a.PatientCheckInId == patientCheckInId && a.DoctorCheckInId == doctorCheckIn.DoctorCheckInId).First();
+            if (assignment == null)
             {
                 return NotFound();
             }
 
-            return Ok(result);
+            return Ok(assignment);
         }
 
         // PUT: api/Assignments/5
