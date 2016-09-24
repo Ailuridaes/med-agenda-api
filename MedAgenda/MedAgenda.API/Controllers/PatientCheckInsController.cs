@@ -75,7 +75,10 @@ namespace MedAgenda.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(patientCheckIn).State = EntityState.Modified;
+            var checkInToBeUpdated = db.PatientCheckIns.FirstOrDefault(a => a.PatientCheckInId == id);
+
+            db.Entry(checkInToBeUpdated).CurrentValues.SetValues(patientCheckIn);
+            db.Entry(checkInToBeUpdated).State = EntityState.Modified;
 
             try
             {
@@ -114,8 +117,11 @@ namespace MedAgenda.API.Controllers
 
             // Add CheckOutTime
             patientCheckIn.CheckOutTime = DateTime.Now;
+            
+            var checkInToBeUpdated = db.PatientCheckIns.FirstOrDefault(a => a.PatientCheckInId == id);
 
-            db.Entry(patientCheckIn).State = EntityState.Modified;
+            db.Entry(checkInToBeUpdated).CurrentValues.SetValues(patientCheckIn);
+            db.Entry(checkInToBeUpdated).State = EntityState.Modified;
 
             try
             {
