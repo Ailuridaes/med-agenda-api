@@ -110,17 +110,26 @@ namespace MedAgenda.API.Controllers
 
         }
 
-        // Get Patient conditions with associated patient counts     
-        [HttpGet, Route("api/dashboard/patientConditions")]
-        public IHttpActionResult GetPatientConditions()
+       // Get Patient conditions with associated patient counts
+       [HttpGet, Route("api/dashboard/patientConditions")]
+       public IHttpActionResult GetPatientConditions()
         {
-            // Get Medicalfield names assigned to 'labels'
-            string[] labels = _dataContext.MedicalFields.Select(mf => mf.Name).ToArray();
+            // Get Symptoms from PatientCheckIns, convert to array and assign to 'labels'
+            string[] labels = _dataContext.PatientCheckIns.Select(p => p.Symptoms).ToArray();
 
-            // Instantiate a new int array object assignedS 'data'
+            // Instantiate a new int array object assigned to 'data'
             int[] data = new int[labels.Length];
 
-            // Return doctor specialty data
+            // Get array values for symptom name labels
+            for (int i = 0; i < labels.Length; i++)
+            {
+                // Store each iteration of the labels into a new string label object
+                string label = labels[i];
+                // Take the PatientCheckIn names that equal the label iteration, count it and assign each iteration to data array.
+                data[i] = _dataContext.PatientCheckIns.Count(s => s.Symptoms == label);
+            }
+
+            // Return patient symptom data
             return Ok(new
             {
                 Labels = labels,
